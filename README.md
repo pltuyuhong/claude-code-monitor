@@ -58,6 +58,16 @@ cd claude-code-monitor
 
 This installs the `cc-monitor` command (pure Python, no dependencies).
 
+> **`permission denied` running the script?** The executable bit can be lost
+> when downloading a ZIP or with certain git settings. Either run it through
+> bash directly:
+>
+> ```bash
+> bash scripts/install.sh
+> ```
+>
+> or restore the bit with `chmod +x scripts/install.sh` and re-run.
+
 ## Wire into Claude Code
 
 Merge the `hooks` block from

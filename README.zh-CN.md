@@ -55,6 +55,15 @@ cd claude-code-monitor
 
 这会安装 `cc-monitor` 命令（纯 Python，无任何依赖）。
 
+> **运行脚本时提示 `permission denied`？** 通过下载 ZIP 包或在某些 git 配置下，文件的
+> 可执行位可能会丢失。可以直接用 bash 运行：
+>
+> ```bash
+> bash scripts/install.sh
+> ```
+>
+> 或先恢复可执行位 `chmod +x scripts/install.sh` 再重新运行。
+
 ## 接入 Claude Code
 
 把 [`examples/settings.hooks.json`](examples/settings.hooks.json) 里的 `hooks` 块
