@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "claude-code-monitor"
+dynamic = ["version"]
+description = "Bring the iTerm window running Claude Code to the front when Claude needs attention, driven by Claude Code hooks."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "pltuyuhong" }]
+keywords = ["claude-code", "hooks", "iterm", "macos", "automation", "focus"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0", "ruff>=0.1"]
+
+[project.urls]
+Homepage = "https://github.com/pltuyuhong/claude-code-monitor"
+Issues = "https://github.com/pltuyuhong/claude-code-monitor/issues"
+
+[project.scripts]
+cc-monitor = "cc_monitor.cli:run"
+
+[tool.setuptools.dynamic]
+version = { attr = "cc_monitor.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"

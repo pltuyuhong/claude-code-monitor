@@ -1,0 +1,19 @@
+{
+  "_comment": "Merge the 'hooks' block into ~/.claude/settings.json or your project's .claude/settings.json. Assumes the 'cc-monitor' command is on PATH (see install.sh). If it isn't, replace 'cc-monitor focus' with 'python3 -m cc_monitor.cli focus'. The window comes forward on Notification (Claude needs input) and Stop (task done).",
+  "hooks": {
+    "Notification": [
+      {
+        "hooks": [
+          { "type": "command", "command": "cc-monitor focus" }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          { "type": "command", "command": "cc-monitor focus" }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Packaging / lock (managed by uv; keep out of source tree)
+# (uv.lock is intentionally tracked; remove the next line if you don't use uv)
+
+# IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
