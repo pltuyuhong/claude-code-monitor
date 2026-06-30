@@ -19,6 +19,35 @@ macOS only (uses AppleScript). No hardware required.
 | Focus the iTerm tab | `Notification` (Claude needs input / confirmation) |
 | Focus the iTerm tab | `Stop` (task done) |
 
+## Requirements
+
+- **macOS** — focusing is done via AppleScript (`osascript`), which is macOS only.
+- **[iTerm2](https://iterm2.com/)** — required for precise tab targeting.
+  `cc-monitor` reads each session's working directory through iTerm's
+  `session.path` AppleScript variable to find the exact tab matching Claude
+  Code's `cwd`. The stock macOS **Terminal.app** does not expose per-tab working
+  directories to AppleScript, so it is supported only as a fallback that brings
+  the whole app forward (no specific tab) — see [Configure](#configure-optional).
+- **Python 3.8+** — pure standard library, no third-party dependencies.
+
+### Installing iTerm2
+
+If you don't have iTerm2 yet:
+
+```bash
+brew install --cask iterm2
+```
+
+Or download it from [iterm2.com/downloads.html](https://iterm2.com/downloads.html).
+
+Then run Claude Code from inside an iTerm2 window/tab, so `cc-monitor` has a
+matching tab to bring forward.
+
+> **Note on iTerm settings:** the working-directory match relies on iTerm
+> knowing each session's current directory. This works out of the box on modern
+> iTerm2; if matching ever fails, ensure shell integration is installed
+> (**iTerm2 → Install Shell Integration**) so `session.path` is populated.
+
 ## Install
 
 ```bash

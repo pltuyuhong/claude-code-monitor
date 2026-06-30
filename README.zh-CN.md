@@ -18,6 +18,33 @@ Claude 是不是在等你了。
 | 聚焦对应的 iTerm 标签页 | `Notification`（Claude 需要输入 / 确认） |
 | 聚焦对应的 iTerm 标签页 | `Stop`（任务完成） |
 
+## 环境要求
+
+- **macOS** —— 聚焦通过 AppleScript（`osascript`）实现，仅支持 macOS。
+- **[iTerm2](https://iterm2.com/)** —— 精确定位标签页所必需。`cc-monitor` 通过
+  iTerm 的 `session.path` AppleScript 变量读取每个会话的工作目录，从而找到与
+  Claude Code 的 `cwd` 匹配的那个标签页。macOS 自带的 **Terminal.app** 不会把每个
+  标签页的工作目录暴露给 AppleScript，因此它只能作为降级方案使用 —— 仅把整个 App
+  提到最前，不会选中具体标签页（见 [配置（可选）](#配置可选)）。
+- **Python 3.8+** —— 纯标准库，无任何第三方依赖。
+
+### 安装 iTerm2
+
+如果你还没装 iTerm2：
+
+```bash
+brew install --cask iterm2
+```
+
+或从 [iterm2.com/downloads.html](https://iterm2.com/downloads.html) 下载。
+
+然后在 iTerm2 的窗口/标签页里运行 Claude Code，这样 `cc-monitor` 才有对应的标签页
+可以切到最前。
+
+> **关于 iTerm 设置：** 工作目录匹配依赖 iTerm 知道每个会话的当前目录。在较新版本的
+> iTerm2 上开箱即用；如果匹配偶尔失败，请确认已安装 Shell 集成
+> （**iTerm2 → Install Shell Integration**），以保证 `session.path` 有值。
+
 ## 安装
 
 ```bash
