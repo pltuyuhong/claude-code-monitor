@@ -1,5 +1,7 @@
 # claude-code-monitor
 
+**English** · [简体中文](README.zh-CN.md)
+
 Bring the iTerm window running [Claude Code](https://code.claude.com) to the
 front the moment it needs your attention.
 
