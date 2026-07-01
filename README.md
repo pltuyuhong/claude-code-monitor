@@ -95,10 +95,21 @@ the built-in Terminal app instead of iTerm).
 ## How it works
 
 Claude Code fires a hook on each lifecycle event and passes JSON (including the
-project `cwd`) on stdin. `cc-monitor` reads that and uses AppleScript to walk
-every iTerm session, selecting the tab whose working directory matches `cwd`.
-If no tab matches (or the app isn't iTerm), it falls back to bringing the whole
-app forward. Every path fails safe: a scripting error never blocks Claude Code.
+project `cwd`) on stdin. `cc-monitor` reads that and focuses the terminal in two
+steps:
+
+1. **Bring the app forward with `open -a`.** When the hook fires you have
+   usually switched to another app, so `cc-monitor` runs as a background
+   process. `osascript ... activate` does not reliably steal focus across
+   applications from the background — it often just reorders windows
+   invisibly — whereas `open -a` (LaunchServices) does bring the app forward.
+2. **Select the matching tab.** Now that iTerm is frontmost, it walks every
+   iTerm session via AppleScript and raises the tab whose working directory
+   matches `cwd`. (Reordering a window only takes visible effect while the app
+   is active, hence the ordering.)
+
+If no tab matches (or the app isn't iTerm), you still get the app-level focus
+from step 1. Every path fails safe: a scripting error never blocks Claude Code.
 
 ## Test it
 

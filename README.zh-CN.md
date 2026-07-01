@@ -90,9 +90,18 @@ cp examples/config.json ~/.config/cc-monitor/config.json
 ## 工作原理
 
 Claude Code 在每个生命周期事件触发一个 hook，并通过 stdin 传入 JSON（包含项目的
-`cwd`）。`cc-monitor` 读取它，再用 AppleScript 遍历每一个 iTerm 会话，选中工作目录
-与 `cwd` 匹配的那个标签页。如果没有匹配（或当前 App 不是 iTerm），则退而把整个 App
-提到最前。每条路径都做了安全兜底：脚本出错绝不会阻断 Claude Code。
+`cwd`）。`cc-monitor` 读取它，然后分两步聚焦终端：
+
+1. **用 `open -a` 把 App 拉到前台。** hook 触发时你通常已经切到别的 App，所以
+   `cc-monitor` 是以后台进程运行的。后台进程调用 `osascript ... activate` 无法可靠地
+   跨 App 抢焦点——它往往只是在后台悄悄重排了窗口；而 `open -a`（走 LaunchServices）
+   能真正把 App 拉到前台。
+2. **选中匹配的标签页。** 此时 iTerm 已在前台，再用 AppleScript 遍历每个 iTerm 会话，
+   把工作目录与 `cwd` 匹配的那个标签页翻到最前。（窗口重排只有在 App 已激活时才会真正
+   生效，所以顺序很关键。）
+
+如果没有匹配（或当前 App 不是 iTerm），你仍会得到第 1 步的 App 级聚焦。每条路径都做了
+安全兜底：脚本出错绝不会阻断 Claude Code。
 
 ## 测试
 
